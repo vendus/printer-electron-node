@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.1...v1.1.2) (2025-01-30)
+
+
+### Bug Fixes
+
+* gerar build ([8f91822](https://github.com/Alexssmusica/printer-node-electron/commit/8f91822531692a4cb7f2210bb1e225b7a7fd2872))
+* release.js ([68df84f](https://github.com/Alexssmusica/printer-node-electron/commit/68df84fc70933d8f454a9f125bddb308feff3447))
+* release.js ([6c30998](https://github.com/Alexssmusica/printer-node-electron/commit/6c30998fbdaa78a0f7a9a4c96d2c4b2769144efa))
+
 ## [1.1.1](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.0...v1.1.1) (2025-01-30)
 
 
