@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.3...v1.1.4) (2025-01-30)
+
+
+### Bug Fixes
+
+* export type default ([d92e857](https://github.com/Alexssmusica/printer-node-electron/commit/d92e85781a77d3baf86fe03c9b767cf0923a0adc))
+
 ## [1.1.3](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.2...v1.1.3) (2025-01-30)
 
 
