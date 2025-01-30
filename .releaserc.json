@@ -24,6 +24,5 @@
                 "message": "chore(release): update version v${nextRelease.version}"
             }
         ]
-    ],
-    "ci": false
+    ]
 }
