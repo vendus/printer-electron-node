@@ -29,6 +29,12 @@
     "url": "https://github.com/Alexssmusica/printer-node-electron/#readme",
     "email": "alexssmusica@gmail.com"
   },
+  "binary": {
+    "module_name": "printer_node_electron",
+    "module_path": "./",
+    "host": "https://github.com/Alexssmusica/printer-node-electron/releases/download/",
+    "remote_path": "v{version}"
+  },
   "types": "index.d.ts",
   "license": "MIT",
   "gypfile": true,
