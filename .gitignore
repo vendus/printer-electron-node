@@ -16,3 +16,4 @@ prebuilds/
 *.node
 *.swp
 *.log
+.env

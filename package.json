@@ -11,7 +11,7 @@
     "prebuild": "prebuild",
     "build": "node-gyp build",
     "rebuild": "node-gyp rebuild",
-    "release": "semantic-release --no-ci"
+    "release": "node -r dotenv/config ./node_modules/.bin/semantic-release --no-ci"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,8 @@
     "bindings": "1.5.0",
     "node-addon-api": "8.3.0",
     "node-gyp": "11.0.0",
-    "prebuild-install": "7.1.3"
+    "prebuild-install": "7.1.3",
+    "dotenv": "16.4.7"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
