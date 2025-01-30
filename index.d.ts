@@ -61,5 +61,5 @@ declare module 'printer-node-electron' {
     function getStatusPrinter(options: GetStatusPrinterOptions): Promise<PrinterOptions>;
 }
 
-export = 'printer-node-electron';
+export default 'printer-node-electron';
   
