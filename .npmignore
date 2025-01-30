@@ -2,4 +2,5 @@
 *~
 .c9*
 prebuilds/
+build/
 .releaserc.json

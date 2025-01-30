@@ -6,6 +6,7 @@
   "private": false,
   "scripts": {
     "install": "prebuild-install || node-gyp rebuild",
+    "prebuild-install": "prebuild-install",
     "configure": "node-gyp configure",
     "clean": "node-gyp clean",
     "prebuild": "prebuild",
