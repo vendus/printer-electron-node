@@ -1,7 +1,7 @@
 {
   "name": "printer-node-electron",
   "description": "Node.js and Electron bindings",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "index.js",
   "private": false,
   "scripts": {
@@ -24,12 +24,6 @@
     "node",
     "printer"
   ],
-  "binary": {
-    "module_name": "printer_node_electron",
-    "module_path": "./",
-    "host": "https://github.com/Alexssmusica/printer-node-electron/releases/download/",
-    "remote_path": "v{version}"
-  },
   "author": {
     "name": "Alex Santos de Souza",
     "url": "https://github.com/Alexssmusica/printer-node-electron/#readme",
