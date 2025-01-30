@@ -1,5 +1,5 @@
 .gitignore
 *~
-.settings
 .c9*
 prebuilds/
+.releaserc.json
