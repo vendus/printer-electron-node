@@ -1,5 +1,8 @@
-const { execSync } = require('child_process');
-require('dotenv').config();
+import { execSync } from 'child_process';
+import dotEnv from 'dotenv';
+dotEnv.config({
+    path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+});
 
 try {
     if (!process.env.GH_TOKEN) {
