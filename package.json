@@ -9,21 +9,47 @@
     "prebuild": "prebuild",
     "build": "node-gyp build",
     "rebuild": "node-gyp rebuild",
-    "install": "node-gyp rebuild"
+    "install": "prebuild-install || node-gyp rebuild"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Alexssmusica/printer-node-electron.git"
+  },
+  "keywords": [
+    "native",
+    "electron",
+    "node",
+    "printer"
+  ],
+  "binary": {
+    "module_name": "printer_node_electron",
+    "module_path": "./",
+    "host": "https://github.com/Alexssmusica/printer-node-electron/releases/download/",
+    "remote_path": "v{version}"
+  },
+  "author": {
+    "name": "Alex Santos de Souza",
+    "url": "http://program-support.co.uk/",
+    "email": "alexssmusica@gmail.com"
+  },
+  "types": "index.d.ts",
+  "license": "MIT",
   "gypfile": true,
-  "description": "",
   "dependencies": {
-    "bindings": "^1.5.0",
-    "node-addon-api": "^8.3.0",
-    "node-gyp": "^11.0.0"
+    "bindings": "1.5.0",
+    "node-addon-api": "8.3.0",
+    "node-gyp": "11.0.0",
+    "prebuild-install": "7.1.3"
   },
   "devDependencies": {
-    "@types/node": "^22.12.0",
-    "prebuild": "^13.0.1",
-    "typescript": "^5.7.3"
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "11.0.1",
+    "@semantic-release/npm": "12.0.1",
+    "@semantic-release/release-notes-generator": "14.0.3",
+    "@types/node": "22.12.0",
+    "prebuild": "7.2.2",
+    "typescript": "5.7.3"
   }
 }
