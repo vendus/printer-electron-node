@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Alexssmusica/printer-node-electron/compare/v1.0.0...v1.1.0) (2025-01-30)
+
+
+### Features
+
+* script de Release ([a006062](https://github.com/Alexssmusica/printer-node-electron/commit/a0060623480441b400745cbf851f5d5fd2d3ad6f))
+
 # 1.0.0 (2025-01-30)
 
 
