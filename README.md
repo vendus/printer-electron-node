@@ -27,7 +27,7 @@ npm install printer-node-electron
 
 Para desenvolvimento:
 ```bash
-git clone https://github.com/seu-usuario/printer-node-electron.git
+git clone https://github.com/Alexssmusica/printer-node-electron.git
 cd printer-node-electron
 npm install
 npm run rebuild

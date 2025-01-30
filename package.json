@@ -3,18 +3,21 @@
   "description": "Node.js and Electron bindings",
   "version": "1.0.0",
   "main": "index.js",
+  "private": false,
   "scripts": {
+    "install": "prebuild-install || node-gyp rebuild",
     "configure": "node-gyp configure",
     "clean": "node-gyp clean",
     "prebuild": "prebuild",
     "build": "node-gyp build",
     "rebuild": "node-gyp rebuild",
-    "install": "prebuild-install || node-gyp rebuild"
+    "release:dev": "semantic-release --no-ci",
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/Alexssmusica/printer-node-electron.git"
   },
+  "homepage": "https://github.com/Alexssmusica/printer-node-electron/#readme",
   "keywords": [
     "native",
     "electron",
@@ -29,7 +32,7 @@
   },
   "author": {
     "name": "Alex Santos de Souza",
-    "url": "http://program-support.co.uk/",
+    "url": "https://github.com/Alexssmusica/printer-node-electron/#readme",
     "email": "alexssmusica@gmail.com"
   },
   "types": "index.d.ts",
