@@ -11,11 +11,11 @@
     "prebuild": "prebuild",
     "build": "node-gyp build",
     "rebuild": "node-gyp rebuild",
-    "release": "node -r dotenv/config ./node_modules/.bin/semantic-release --no-ci"
+    "release": "node release.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Alexssmusica/printer-node-electron.git"
+    "url": "git@github.com:Alexssmusica/printer-node-electron.git"
   },
   "homepage": "https://github.com/Alexssmusica/printer-node-electron/#readme",
   "keywords": [
@@ -40,10 +40,10 @@
   "gypfile": true,
   "dependencies": {
     "bindings": "1.5.0",
+    "dotenv": "16.4.7",
     "node-addon-api": "8.3.0",
     "node-gyp": "11.0.0",
-    "prebuild-install": "7.1.3",
-    "dotenv": "16.4.7"
+    "prebuild-install": "7.1.3"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
@@ -53,6 +53,7 @@
     "@semantic-release/npm": "12.0.1",
     "@semantic-release/release-notes-generator": "14.0.3",
     "@types/node": "22.12.0",
+    "cross-env": "^7.0.3",
     "prebuild": "7.2.2",
     "typescript": "5.7.3"
   }
