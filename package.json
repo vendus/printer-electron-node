@@ -1,0 +1,29 @@
+{
+  "name": "printer-node-electron",
+  "description": "Node.js and Electron bindings",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "configure": "node-gyp configure",
+    "clean": "node-gyp clean",
+    "prebuild": "prebuild",
+    "build": "node-gyp build",
+    "rebuild": "node-gyp rebuild",
+    "install": "node-gyp rebuild"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "gypfile": true,
+  "description": "",
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "node-addon-api": "^8.3.0",
+    "node-gyp": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.12.0",
+    "prebuild": "^13.0.1",
+    "typescript": "^5.7.3"
+  }
+}
