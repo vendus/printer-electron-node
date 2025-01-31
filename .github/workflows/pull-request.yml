@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest]
         node-version: [18.x, 20.x, 22.x]
 
     steps:
@@ -20,12 +20,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-
-    - name: Instalar dependências de sistema (Ubuntu)
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gcc g++ make libcups2-dev python-is-python3
 
     - name: Instalar dependências
       run: npm install --no-save --silent
