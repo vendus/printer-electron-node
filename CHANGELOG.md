@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.4...v1.1.5) (2025-01-31)
+
+
+### Bug Fixes
+
+* remove comments ([1b42d2d](https://github.com/Alexssmusica/printer-node-electron/commit/1b42d2d0756ceb4c11c854c45988642b40eaba79))
+
 ## [1.1.4](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.3...v1.1.4) (2025-01-30)
 
 
