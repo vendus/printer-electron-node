@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  build:
+  CI-pull-request:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
