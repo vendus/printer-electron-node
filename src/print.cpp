@@ -8,10 +8,6 @@
   #include <winspool.h>
 #else
   #include <cups/cups.h>
-  typedef unsigned long DWORD;
-  typedef void* HANDLE;
-  typedef char* LPSTR;
-  typedef unsigned char BYTE;
 #endif
 
 #include "print.h"
@@ -47,11 +43,11 @@ std::string GetPrinterStatus(DWORD status) {
     return "ready";
 }
 
-PrinterInfo GetPrinterDetails(const std::string& printerName, bool getStatus = false) {
+PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = false) {
     PrinterInfo info;
     info.name = printerName;
-    
-    #ifdef _WIN32
+    info.isDefault = isDefault;
+
     HANDLE hPrinter;
     if (OpenPrinter((LPSTR)printerName.c_str(), &hPrinter, NULL)) {
         DWORD needed;
@@ -73,11 +69,6 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool getStatus = f
         }
         ClosePrinter(hPrinter);
     }
-    #else
-    // Implementação para Linux/Mac
-    info.status = "Status não disponível em sistemas não-Windows";
-    info.isDefault = false;
-    #endif
 
     return info;
 }
@@ -91,7 +82,6 @@ public:
         : Napi::AsyncWorker(callback) {}
 
     void Execute() override {
-        #ifdef _WIN32
         DWORD needed, returned;
         EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 2, NULL, 0, &needed, &returned);
         
@@ -112,14 +102,6 @@ public:
             }
             delete[] buffer;
         }
-        #else
-        // Implementação básica para Linux/Mac usando CUPS
-        printers.push_back(PrinterInfo{
-            "Implementação Linux em desenvolvimento",
-            "Não disponível",
-            false
-        });
-        #endif
     }
 
     void OnOK() override {
@@ -154,7 +136,6 @@ public:
         : Napi::AsyncWorker(callback) {}
 
     void Execute() override {
-        #ifdef _WIN32
         char defaultPrinter[256];
         DWORD size = sizeof(defaultPrinter);
         
@@ -163,12 +144,6 @@ public:
         } else {
             SetError("Failed to get default printer");
         }
-        #else
-        // Implementação para Linux/Mac
-        printer.name = "Implementação Linux em desenvolvimento";
-        printer.status = "Não disponível";
-        printer.isDefault = true;
-        #endif
     }
 
     void OnOK() override {
@@ -360,7 +335,7 @@ public:
         : Napi::AsyncWorker(callback), printerName(name) {}
 
     void Execute() override {
-        printer = GetPrinterDetails(printerName, true);
+        printer = GetPrinterDetails(printerName);
         if (printer.name.empty()) {
             SetError("Printer not found");
         }
