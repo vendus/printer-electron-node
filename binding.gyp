@@ -15,8 +15,14 @@
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "defines": [ "NAPI_DISABLE_CPP_EXCEPTIONS" ],
-      "binding_name": "print_lib",
-      "libraries": []
+      "conditions": [
+        ['OS=="linux"', {
+          "libraries": ["-lcups"]
+        }],
+        ['OS=="win"', {
+          "libraries": ["winspool.lib"]
+        }]
+      ]
     }
   ]
 }
