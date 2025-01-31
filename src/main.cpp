@@ -1,7 +1,6 @@
 #include <napi.h>
 #include "print.h"
 
-// Função de inicialização do módulo
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
     exports.Set(Napi::String::New(env, "printDirect"), Napi::Function::New(env, PrintDirect));
     exports.Set(Napi::String::New(env, "getPrinters"), Napi::Function::New(env, GetPrinters));
@@ -10,5 +9,4 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     return exports;
 }
 
-// Define o módulo Node
 NODE_API_MODULE(printer_node_electron, Init)

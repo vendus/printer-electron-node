@@ -60,7 +60,6 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                 
                 info.status = GetPrinterStatus(pInfo->Status);
                 
-                // Adicionar opções básicas da impressora
                 if (pInfo->pLocation) info.options["location"] = pInfo->pLocation;
                 if (pInfo->pComment) info.options["comment"] = pInfo->pComment;
                 if (pInfo->pDriverName) info.options["driver"] = pInfo->pDriverName;
@@ -91,7 +90,6 @@ public:
             if (EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 2, buffer, needed, &needed, &returned)) {
                 PRINTER_INFO_2* pPrinterEnum = (PRINTER_INFO_2*)buffer;
                 
-                // Obter impressora padrão para comparação
                 char defaultPrinter[256];
                 DWORD size = sizeof(defaultPrinter);
                 GetDefaultPrinter(defaultPrinter, &size);
@@ -204,7 +202,6 @@ public:
 
         ClosePrinter(printerHandle);
         #else
-        // ... código CUPS existente ...
         #endif
     }
 
@@ -214,15 +211,13 @@ public:
     }
 };
 
-// Renomear a função PrintText para PrintDirect
 Napi::Value PrintDirect(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     std::string printerName;
     std::vector<uint8_t> data;
-    std::string dataType = "RAW";  // Valor padrão
+    std::string dataType = "RAW"; 
 
-    // Verifica se é um objeto de opções
     if (info.Length() == 1 && info[0].IsObject()) {
         Napi::Object options = info[0].As<Napi::Object>();
         
@@ -234,12 +229,10 @@ Napi::Value PrintDirect(const Napi::CallbackInfo& info) {
 
         printerName = options.Get("printerName").As<Napi::String>().Utf8Value();
         
-        // dataType é opcional, verifica se existe
         if (options.Has("dataType") && options.Get("dataType").IsString()) {
             dataType = options.Get("dataType").As<Napi::String>().Utf8Value();
         }
 
-        // Verifica o tipo de data
         Napi::Value dataValue = options.Get("data");
         if (dataValue.IsString()) {
             std::string dataStr = dataValue.As<Napi::String>().Utf8Value();
@@ -252,11 +245,9 @@ Napi::Value PrintDirect(const Napi::CallbackInfo& info) {
             return env.Null();
         }
     }
-    // Verifica se são argumentos separados
     else if (info.Length() >= 2 && info[0].IsString() && (info[1].IsString() || info[1].IsBuffer())) {
         printerName = info[0].As<Napi::String>().Utf8Value();
         
-        // dataType é o terceiro argumento opcional
         if (info.Length() >= 3 && info[2].IsString()) {
             dataType = info[2].As<Napi::String>().Utf8Value();
         }
@@ -274,10 +265,8 @@ Napi::Value PrintDirect(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    // Criar uma Promise
     Napi::Promise::Deferred deferred = Napi::Promise::Deferred::New(env);
     
-    // Criar uma função de callback que resolverá a Promise
     Napi::Function callback = Napi::Function::New(env, [deferred](const Napi::CallbackInfo& info) {
         Napi::Env env = info.Env();
         if (info[0].IsNull()) {
@@ -288,11 +277,9 @@ Napi::Value PrintDirect(const Napi::CallbackInfo& info) {
         return env.Undefined();
     });
     
-    // Criar e iniciar o worker assíncrono
     PrintDirectWorker* worker = new PrintDirectWorker(callback, printerName, data, dataType);
     worker->Queue();
     
-    // Retornar a Promise
     return deferred.Promise();
 }
 
@@ -320,10 +307,8 @@ Napi::Value GetPrinters(const Napi::CallbackInfo& info) {
 Napi::Value GetSystemDefaultPrinter(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     
-    // Criar uma Promise
     Napi::Promise::Deferred deferred = Napi::Promise::Deferred::New(env);
     
-    // Criar uma função de callback que resolverá a Promise
     Napi::Function callback = Napi::Function::New(env, [deferred](const Napi::CallbackInfo& info) {
         Napi::Env env = info.Env();
         if (info[0].IsNull()) {
@@ -334,11 +319,9 @@ Napi::Value GetSystemDefaultPrinter(const Napi::CallbackInfo& info) {
         return env.Undefined();
     });
     
-    // Criar e iniciar o worker assíncrono
     GetDefaultPrinterWorker* worker = new GetDefaultPrinterWorker(callback);
     worker->Queue();
     
-    // Retornar a Promise
     return deferred.Promise();
 }
 
@@ -379,17 +362,14 @@ public:
 Napi::Value GetStatusPrinter(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
-    // Verificar se recebemos um argumento
     if (info.Length() < 1 || !info[0].IsObject()) {
         Napi::TypeError::New(env, "Expected an object with printerName property")
             .ThrowAsJavaScriptException();
         return env.Null();
     }
 
-    // Obter o objeto de opções
     Napi::Object options = info[0].As<Napi::Object>();
     
-    // Verificar se tem a propriedade printerName
     if (!options.Has("printerName") || !options.Get("printerName").IsString()) {
         Napi::TypeError::New(env, "Object must contain printerName as string")
             .ThrowAsJavaScriptException();
@@ -398,10 +378,8 @@ Napi::Value GetStatusPrinter(const Napi::CallbackInfo& info) {
 
     std::string printerName = options.Get("printerName").As<Napi::String>().Utf8Value();
     
-    // Criar uma Promise
     Napi::Promise::Deferred deferred = Napi::Promise::Deferred::New(env);
     
-    // Criar uma função de callback que resolverá a Promise
     Napi::Function callback = Napi::Function::New(env, [deferred](const Napi::CallbackInfo& info) {
         Napi::Env env = info.Env();
         if (info[0].IsNull()) {
@@ -412,10 +390,8 @@ Napi::Value GetStatusPrinter(const Napi::CallbackInfo& info) {
         return env.Undefined();
     });
     
-    // Criar e iniciar o worker assíncrono
     GetStatusPrinterWorker* worker = new GetStatusPrinterWorker(callback, printerName);
     worker->Queue();
     
-    // Retornar a Promise
     return deferred.Promise();
 }
