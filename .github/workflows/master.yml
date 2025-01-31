@@ -25,7 +25,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
-        sudo apt-get install -y g++-multilib gcc-multilib libcups2-dev
+        sudo apt-get install -y gcc g++ make libcups2-dev python-is-python3
 
     - name: Instalar dependências
       run: npm install --no-save --silent
