@@ -31,7 +31,7 @@
   },
   "binary": {
     "module_name": "printer_node_electron",
-    "module_path": "./",
+    "module_path": "build/Release/",
     "host": "https://github.com/Alexssmusica/printer-node-electron/releases/download/",
     "remote_path": "v{version}"
   },
