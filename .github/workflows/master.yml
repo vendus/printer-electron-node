@@ -23,7 +23,7 @@ jobs:
         cache: 'npm'
 
     - name: Instalar dependências
-      run: npm ci
+      run: npm install --no-save --silent
 
     - name: Instalar dependências de sistema (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
