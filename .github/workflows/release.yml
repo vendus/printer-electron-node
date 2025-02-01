@@ -1,0 +1,35 @@
+name: CD Release
+
+on:
+  workflow_run:
+    workflows:
+      - CI Dev
+    types:
+      - completed
+
+jobs:
+  CD-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Instalar dependências
+        run: npm install --no-save
+
+      - name: Build do projeto para release
+        run: npm run build
+
+      - name: Criar Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run release
+
+      - name: Git push
+        run: git push origin HEAD:dev

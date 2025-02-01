@@ -8,7 +8,8 @@
     "install": "node-gyp rebuild",
     "configure": "node-gyp configure",
     "clean": "node-gyp clean",
-    "prebuild": "prebuild",
+    "prebuild": "node prebuild.js",
+    "prebuild:action": "prebuild",
     "build": "node-gyp build",
     "rebuild": "node-gyp rebuild",
     "release": "node release.js"

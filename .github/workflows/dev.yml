@@ -1,0 +1,37 @@
+name: CI Dev
+
+on:
+  push:
+    branches:
+      - dev 
+
+jobs:
+  CI-dev:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+      - name: Verificar mensagem de commit
+        run: |
+          echo "Última mensagem do commit: $(git log -1 --pretty=%B)"
+          if [[ "$(git log -1 --pretty=%B)" == *"[release]"* ]]; then
+            echo "Commit de release detectado. Finalizando workflow."
+            exit 0
+          fi
+
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Instalar dependências 
+        run: npm install --no-save
+
+      - name: Build do projeto
+        run: npm run build

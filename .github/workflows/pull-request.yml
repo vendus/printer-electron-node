@@ -22,7 +22,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Instalar dependências
-      run: npm install --no-save --silent
+      run: npm install --no-save
 
     - name: Build
       run: npm run build
