@@ -11,7 +11,8 @@ try {
         throw new Error('GH_TOKEN não encontrado no arquivo .env');
     }
     console.log('Iniciando processo de prebuild...');
-    for (const command of Object.values(commands)) {
+    const commandList = Object.values(commands)
+    for (const command of commandList) {
         execSync(command, {
             stdio: 'inherit'
         });
