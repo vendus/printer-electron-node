@@ -14,6 +14,9 @@ jobs:
         node-version: [18.x, 20.x, 22.x]
 
     steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
       - name: Verificar mensagem de commit
         run: |
           echo "Última mensagem do commit: $(git log -1 --pretty=%B)"
@@ -21,9 +24,6 @@ jobs:
             echo "Commit de release detectado. Finalizando workflow."
             exit 0
           fi
-
-      - name: Checkout do código
-        uses: actions/checkout@v4
 
       - name: Configurar Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
