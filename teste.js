@@ -8,11 +8,11 @@ printLib.getPrinters().then((printers) => {
 });
 
 // Testando impressora padrão
-printLib.getDefaultPrinter().then((printer) => {
-  console.log('Impressora padrão:', printer);
-}).catch((error) => {
-  console.error('Erro ao obter impressora padrão:', error);
-});
+// printLib.getDefaultPrinter().then((printer) => {
+//   console.log('Impressora padrão:', printer);
+// }).catch((error) => {
+//   console.error('Erro ao obter impressora padrão:', error);
+// });
 
 // Testando impressão
 const options = {
