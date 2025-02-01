@@ -15,15 +15,6 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Verificar mensagem de commit
-        run: |
-            $commitMessage = $(git log -1 --pretty=%B)
-            echo "Última mensagem do commit: $commitMessage"
-            if ($commitMessage -like "*[release]*") {
-              echo "Commit de release detectado. Finalizando workflow."
-              exit 0
-            }
-
       - name: Configurar Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
