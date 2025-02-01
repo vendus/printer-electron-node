@@ -8,6 +8,8 @@
   #include <winspool.h>
 #else
   #include <cups/cups.h>
+  #include <cups/ppd.h>
+  #include <cups/http.h>
 #endif
 
 #include "print.h"
@@ -205,10 +207,10 @@ public:
         #else
         cups_dest_t *dests;
         int num_dests = cupsGetDests(&dests);
-        cups_dest_t *dest = cupsGetDefault2(CUPS_HTTP_DEFAULT);
+        const char* defaultPrinter = cupsGetDefault();
         
-        if (dest != NULL) {
-            printer = GetPrinterDetails(dest->name, true);
+        if (defaultPrinter != NULL) {
+            printer = GetPrinterDetails(defaultPrinter, true);
         } else {
             SetError("No default printer found");
         }
@@ -282,20 +284,24 @@ public:
             int num_options = 0;
             cups_option_t *options = NULL;
             
+            // Convert data to char* for CUPS API
+            const char* printData = reinterpret_cast<const char*>(data.data());
+            size_t dataSize = data.size();
+            
             jobId = cupsCreateJob(CUPS_HTTP_DEFAULT, printerName.c_str(), "Node.js Print Job", num_options, options);
             
             if (jobId > 0) {
-                http_status_t status = cupsStartDocument(CUPS_HTTP_DEFAULT, printerName.c_str(), jobId, "document", dataType.c_str(), 1);
+                http_status_t httpStatus = cupsStartDocument(CUPS_HTTP_DEFAULT, printerName.c_str(), jobId, "document", dataType.c_str(), 1);
                 
-                if (status == HTTP_STATUS_CONTINUE) {
-                    if (cupsWriteRequestData(CUPS_HTTP_DEFAULT, data.data(), data.size()) != HTTP_STATUS_CONTINUE) {
+                if (httpStatus == HTTP_STATUS_CONTINUE) {
+                    if (cupsWriteRequestData(CUPS_HTTP_DEFAULT, printData, dataSize) != HTTP_STATUS_CONTINUE) {
                         SetError("Failed to write print data");
                         cupsFinishDocument(CUPS_HTTP_DEFAULT, printerName.c_str());
                         return;
                     }
                     
-                    status = cupsFinishDocument(CUPS_HTTP_DEFAULT, printerName.c_str());
-                    if (status == HTTP_STATUS_OK) {
+                    httpStatus = static_cast<http_status_t>(cupsFinishDocument(CUPS_HTTP_DEFAULT, printerName.c_str()));
+                    if (httpStatus == HTTP_STATUS_OK) {
                         result = "Print job created successfully";
                     } else {
                         SetError("Failed to finish print job");
