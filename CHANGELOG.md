@@ -1,3 +1,27 @@
+# [1.2.0](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.5...v1.2.0) (2025-02-01)
+
+
+### Bug Fixes
+
+* action dev ([457bd19](https://github.com/Alexssmusica/printer-node-electron/commit/457bd1978903adb7c1d528f70786f90fcb52b067))
+* action linux ([a09c1f5](https://github.com/Alexssmusica/printer-node-electron/commit/a09c1f525ce63f383fb93e1412e8542499509267))
+* action npm ([f644710](https://github.com/Alexssmusica/printer-node-electron/commit/f6447109f376df169f204d10ae1e075c3edccb25))
+* action removido cache ([4dd95f9](https://github.com/Alexssmusica/printer-node-electron/commit/4dd95f997a3788215ef29981e7dc451c1c633ca6))
+* action ubuntu ([b01a5e3](https://github.com/Alexssmusica/printer-node-electron/commit/b01a5e32c769bc91daaa89cf1ef3b4776e8c2981))
+* atentificaçao github ([c6af63b](https://github.com/Alexssmusica/printer-node-electron/commit/c6af63b0b1e038fc8f1f76da2de4824c8cf5bae9))
+* atentificaçao github ([1f809da](https://github.com/Alexssmusica/printer-node-electron/commit/1f809da8625a38a2a862637a86382775eca1035d))
+* comando shell ([b16860b](https://github.com/Alexssmusica/printer-node-electron/commit/b16860b9785a76ca860a335522e407950bb19800))
+* nome jobs action ([78a5b1c](https://github.com/Alexssmusica/printer-node-electron/commit/78a5b1c5e77de129d9f81dd732eb2036af64ce6c))
+* ordem steps ([230df3f](https://github.com/Alexssmusica/printer-node-electron/commit/230df3fb1c9c42ea30068d0df4f54f451ca3f63a))
+* removido action linux ([084c9c3](https://github.com/Alexssmusica/printer-node-electron/commit/084c9c3b5370c0155e01ffc32c26dc3c47483356))
+* step Rebuild do projeto ([ad3671b](https://github.com/Alexssmusica/printer-node-electron/commit/ad3671b8f7ce2354fe97a8c59ded2b7420464227))
+
+
+### Features
+
+* ci github ([324dbf1](https://github.com/Alexssmusica/printer-node-electron/commit/324dbf139496cf8d1d472407449ba8e823a4a54b))
+* papiline de release ([f889697](https://github.com/Alexssmusica/printer-node-electron/commit/f8896972068c251660125eebb768b6ee50eafb1e))
+
 ## [1.1.5](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.4...v1.1.5) (2025-01-31)
 
 
