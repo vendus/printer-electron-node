@@ -10,6 +10,7 @@ try {
         stdio: 'inherit',
         env: {
             ...process.env,
+            GITHUB_TOKEN: process.env.GH_TOKEN,
             GH_TOKEN: process.env.GH_TOKEN
         }
     });
