@@ -32,5 +32,5 @@ jobs:
       - name: Instalar dependências
         run: npm install --no-save
 
-      - name: Build do projeto
-        run: npm run build
+      - name: Rebuild do projeto
+        run: npm run Rebuild

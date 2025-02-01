@@ -23,9 +23,6 @@ jobs:
       - name: Instalar dependências
         run: npm install --no-save
 
-      - name: Build do projeto para release
-        run: npm run build
-
       - name: Criar Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

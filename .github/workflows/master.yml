@@ -20,9 +20,6 @@ jobs:
       - name: Instalar dependências
         run: npm install --no-save
       
-      - name: Build
-        run: npm run build
-      
       - name: Pre Build node x64
         run: npm run prebuild:action -- --strip -t 18.20.6 -t 19.0.0 -t 20.0.0 -t 21.0.0 -t 22.0.0 -a x64 -u ${{ secrets.GH_TOKEN }}
       
