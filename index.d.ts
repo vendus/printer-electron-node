@@ -10,7 +10,7 @@ export interface Printer {
     name: string;
     isDefault: boolean;
     status: string;
-    options: {
+    details: {
         location?: string;
         comment?: string;
         driver?: string;

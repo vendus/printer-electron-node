@@ -17,7 +17,7 @@
 struct PrinterInfo {
     std::string name;
     bool isDefault;
-    std::map<std::string, std::string> options;
+    std::map<std::string, std::string> details;
     std::string status;
 };
 
@@ -78,10 +78,10 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                 
                 info.status = GetPrinterStatus(pInfo->Status);
                 
-                if (pInfo->pLocation) info.options["location"] = pInfo->pLocation;
-                if (pInfo->pComment) info.options["comment"] = pInfo->pComment;
-                if (pInfo->pDriverName) info.options["driver"] = pInfo->pDriverName;
-                if (pInfo->pPortName) info.options["port"] = pInfo->pPortName;
+                if (pInfo->pLocation) info.details["location"] = pInfo->pLocation;
+                if (pInfo->pComment) info.details["comment"] = pInfo->pComment;
+                if (pInfo->pDriverName) info.details["driver"] = pInfo->pDriverName;
+                if (pInfo->pPortName) info.details["port"] = pInfo->pPortName;
             }
             delete[] buffer;
         }
@@ -125,23 +125,23 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
 
                 attr = ippFindAttribute(response, "printer-location", IPP_TAG_TEXT);
                 if (attr != NULL) {
-                    info.options["location"] = ippGetString(attr, 0, NULL);
+                    info.details["location"] = ippGetString(attr, 0, NULL);
                 } else {
-                    info.options["location"] = "";
+                    info.details["location"] = "";
                 }
 
                 attr = ippFindAttribute(response, "printer-info", IPP_TAG_TEXT);
                 if (attr != NULL) {
-                    info.options["comment"] = ippGetString(attr, 0, NULL);
+                    info.details["comment"] = ippGetString(attr, 0, NULL);
                 } else {
-                    info.options["comment"] = "";
+                    info.details["comment"] = "";
                 }
 
                 attr = ippFindAttribute(response, "printer-make-and-model", IPP_TAG_TEXT);
                 if (attr != NULL) {
-                    info.options["driver"] = ippGetString(attr, 0, NULL);
+                    info.details["driver"] = ippGetString(attr, 0, NULL);
                 } else {
-                    info.options["driver"] = "";
+                    info.details["driver"] = "";
                 }
 
                 attr = ippFindAttribute(response, "device-uri", IPP_TAG_URI);
@@ -150,21 +150,21 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                     std::string uriStr(uri);
                     size_t lastSlash = uriStr.find_last_of("/");
                     if (lastSlash != std::string::npos) {
-                        info.options["port"] = uriStr.substr(lastSlash + 1);
+                        info.details["port"] = uriStr.substr(lastSlash + 1);
                     } else {
-                        info.options["port"] = uri;
+                        info.details["port"] = uri;
                     }
                 } else {
-                    info.options["port"] = printerName;
+                    info.details["port"] = printerName;
                 }
 
                 ippDelete(response);
             }
             httpClose(http);
         }
-        
-         for (int i = 0; i < dest->num_options; i++) {
-            info.options[dest->options[i].name] = dest->options[i].value;
+
+         for (int i = 0; i < dest->num_details; i++) {
+            info.details[dest->details[i].name] = dest->details[i].value;
         }
     }
     cupsFreeDests(num_dests, dests);
@@ -226,11 +226,11 @@ public:
             printerObj.Set("isDefault", printers[i].isDefault);
             printerObj.Set("status", printers[i].status);
 
-            Napi::Object optionsObj = Napi::Object::New(Env());
-            for (const auto& option : printers[i].options) {
-                optionsObj.Set(option.first, option.second);
+            Napi::Object detailsObj = Napi::Object::New(Env());
+            for (const auto& option : printers[i].details) {
+                detailsObj.Set(option.first, option.second);
             }
-            printerObj.Set("options", optionsObj);
+            printerObj.Set("details", detailsObj);
 
             printersArray[i] = printerObj;
         }
@@ -280,11 +280,11 @@ public:
         printerObj.Set("isDefault", printer.isDefault);
         printerObj.Set("status", printer.status);
 
-        Napi::Object optionsObj = Napi::Object::New(Env());
-        for (const auto& option : printer.options) {
-            optionsObj.Set(option.first, option.second);
+        Napi::Object detailsObj = Napi::Object::New(Env());
+        for (const auto& option : printer.details) {
+            detailsObj.Set(option.first, option.second);
         }
-        printerObj.Set("options", optionsObj);
+        printerObj.Set("details", detailsObj);
         
         Callback().Call({Env().Null(), printerObj});
     }
@@ -334,13 +334,13 @@ public:
         cups_dest_t *dest = cupsGetDest(printerName.c_str(), NULL, num_dests, dests);
         
         if (dest != NULL) {
-            int num_options = 0;
-            cups_option_t *options = NULL;
+            int num_details = 0;
+            cups_option_t *details = NULL;
             
             const char* printData = reinterpret_cast<const char*>(data.data());
             size_t dataSize = data.size();
             
-            jobId = cupsCreateJob(CUPS_HTTP_DEFAULT, printerName.c_str(), "Node.js Print Job", num_options, options);
+            jobId = cupsCreateJob(CUPS_HTTP_DEFAULT, printerName.c_str(), "Node.js Print Job", num_details, details);
             
             if (jobId > 0) {
                 http_status_t httpStatus = cupsStartDocument(CUPS_HTTP_DEFAULT, printerName.c_str(), jobId, "document", dataType.c_str(), 1);
@@ -516,11 +516,11 @@ public:
         printerObj.Set("isDefault", printer.isDefault);
         printerObj.Set("status", printer.status);
 
-        Napi::Object optionsObj = Napi::Object::New(Env());
-        for (const auto& option : printer.options) {
-            optionsObj.Set(option.first, option.second);
+        Napi::Object detailsObj = Napi::Object::New(Env());
+        for (const auto& option : printer.details) {
+            detailsObj.Set(option.first, option.second);
         }
-        printerObj.Set("options", optionsObj);
+        printerObj.Set("details", detailsObj);
         
         Callback().Call({Env().Null(), printerObj});
     }
