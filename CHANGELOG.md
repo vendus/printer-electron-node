@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/Alexssmusica/printer-node-electron/compare/v1.2.0...v1.2.1) (2025-02-01)
+
+
+### Bug Fixes
+
+* script binarios ([d4c28b7](https://github.com/Alexssmusica/printer-node-electron/commit/d4c28b7eb0d8e9ca98b2850acbd19c940e08eee4))
+
 # [1.2.0](https://github.com/Alexssmusica/printer-node-electron/compare/v1.1.5...v1.2.0) (2025-02-01)
 
 
