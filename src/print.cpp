@@ -19,6 +19,7 @@ struct PrinterInfo {
     std::string status;
 };
 
+#ifdef _WIN32
 std::string GetPrinterStatus(DWORD status) {
     if (status & PRINTER_STATUS_OFFLINE) return "offline";
     if (status & PRINTER_STATUS_ERROR) return "error";
@@ -42,12 +43,23 @@ std::string GetPrinterStatus(DWORD status) {
     if (status & PRINTER_STATUS_DOOR_OPEN) return "door-open";
     return "ready";
 }
+#else
+std::string GetPrinterStatus(ipp_pstate_t state) {
+    switch (state) {
+        case IPP_PRINTER_IDLE: return "ready";
+        case IPP_PRINTER_PROCESSING: return "printing";
+        case IPP_PRINTER_STOPPED: return "error";
+        default: return "unknown";
+    }
+}
+#endif
 
 PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = false) {
     PrinterInfo info;
     info.name = printerName;
     info.isDefault = isDefault;
 
+    #ifdef _WIN32
     HANDLE hPrinter;
     if (OpenPrinter((LPSTR)printerName.c_str(), &hPrinter, NULL)) {
         DWORD needed;
@@ -69,6 +81,39 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
         }
         ClosePrinter(hPrinter);
     }
+    #else
+    cups_dest_t *dests;
+    int num_dests = cupsGetDests(&dests);
+    cups_dest_t *dest = cupsGetDest(printerName.c_str(), NULL, num_dests, dests);
+    
+    if (dest != NULL) {
+        http_t *http = httpConnect2(cupsServer(), ippPort(), NULL, AF_UNSPEC, HTTP_ENCRYPTION_IF_REQUESTED, 1, 30000, NULL);
+        if (http != NULL) {
+            ipp_t *request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+            ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, 
+                        (std::string("ipp://") + cupsServer() + "/printers/" + printerName).c_str());
+            
+            ipp_t *response = cupsDoRequest(http, request, "/");
+            if (response != NULL) {
+                ipp_attribute_t *attr = ippFindAttribute(response, "printer-state", IPP_TAG_ENUM);
+                if (attr != NULL) {
+                    info.status = GetPrinterStatus((ipp_pstate_t)ippGetInteger(attr, 0));
+                }
+                
+                // Get printer options
+                for (attr = ippFirstAttribute(response); attr != NULL; attr = ippNextAttribute(response)) {
+                    const char *name = ippGetName(attr);
+                    if (name != NULL && ippGetValueTag(attr) == IPP_TAG_TEXT) {
+                        info.options[name] = ippGetString(attr, 0, NULL);
+                    }
+                }
+                ippDelete(response);
+            }
+            httpClose(http);
+        }
+    }
+    cupsFreeDests(num_dests, dests);
+    #endif
 
     return info;
 }
@@ -82,6 +127,7 @@ public:
         : Napi::AsyncWorker(callback) {}
 
     void Execute() override {
+        #ifdef _WIN32
         DWORD needed, returned;
         EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 2, NULL, 0, &needed, &returned);
         
@@ -102,6 +148,17 @@ public:
             }
             delete[] buffer;
         }
+        #else
+        cups_dest_t *dests;
+        int num_dests = cupsGetDests(&dests);
+        
+        for (int i = 0; i < num_dests; i++) {
+            std::string printerName(dests[i].name);
+            printers.push_back(GetPrinterDetails(printerName, dests[i].is_default));
+        }
+        
+        cupsFreeDests(num_dests, dests);
+        #endif
     }
 
     void OnOK() override {
@@ -136,6 +193,7 @@ public:
         : Napi::AsyncWorker(callback) {}
 
     void Execute() override {
+        #ifdef _WIN32
         char defaultPrinter[256];
         DWORD size = sizeof(defaultPrinter);
         
@@ -144,6 +202,19 @@ public:
         } else {
             SetError("Failed to get default printer");
         }
+        #else
+        cups_dest_t *dests;
+        int num_dests = cupsGetDests(&dests);
+        cups_dest_t *dest = cupsGetDefault2(CUPS_HTTP_DEFAULT);
+        
+        if (dest != NULL) {
+            printer = GetPrinterDetails(dest->name, true);
+        } else {
+            SetError("No default printer found");
+        }
+        
+        cupsFreeDests(num_dests, dests);
+        #endif
     }
 
     void OnOK() override {
@@ -202,6 +273,44 @@ public:
 
         ClosePrinter(printerHandle);
         #else
+        int jobId = 0;
+        cups_dest_t *dests;
+        int num_dests = cupsGetDests(&dests);
+        cups_dest_t *dest = cupsGetDest(printerName.c_str(), NULL, num_dests, dests);
+        
+        if (dest != NULL) {
+            int num_options = 0;
+            cups_option_t *options = NULL;
+            
+            jobId = cupsCreateJob(CUPS_HTTP_DEFAULT, printerName.c_str(), "Node.js Print Job", num_options, options);
+            
+            if (jobId > 0) {
+                http_status_t status = cupsStartDocument(CUPS_HTTP_DEFAULT, printerName.c_str(), jobId, "document", dataType.c_str(), 1);
+                
+                if (status == HTTP_STATUS_CONTINUE) {
+                    if (cupsWriteRequestData(CUPS_HTTP_DEFAULT, data.data(), data.size()) != HTTP_STATUS_CONTINUE) {
+                        SetError("Failed to write print data");
+                        cupsFinishDocument(CUPS_HTTP_DEFAULT, printerName.c_str());
+                        return;
+                    }
+                    
+                    status = cupsFinishDocument(CUPS_HTTP_DEFAULT, printerName.c_str());
+                    if (status == HTTP_STATUS_OK) {
+                        result = "Print job created successfully";
+                    } else {
+                        SetError("Failed to finish print job");
+                    }
+                } else {
+                    SetError("Failed to start print job");
+                }
+            } else {
+                SetError("Failed to create print job");
+            }
+        } else {
+            SetError("Printer not found");
+        }
+        
+        cupsFreeDests(num_dests, dests);
         #endif
     }
 

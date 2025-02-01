@@ -16,7 +16,18 @@
       "cflags_cc!": [ "-fno-exceptions" ],
       "defines": [ "NAPI_DISABLE_CPP_EXCEPTIONS" ],
       "binding_name": "print_lib",
-      "libraries": []
+      "conditions": [
+        ['OS=="win"', {
+          "libraries": []
+        }],
+        ['OS=="linux" or OS=="mac"', {
+          "libraries": ["-lcups"],
+          "cflags": ["-Wall"],
+          "xcode_settings": {
+            "OTHER_CFLAGS": ["-Wall"]
+          }
+        }]
+      ]
     }
   ]
 }
