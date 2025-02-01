@@ -15,21 +15,21 @@ printLib.getDefaultPrinter().then((printer) => {
 });
 
 // Testando impressão
-const options = {
-  printerName: 'HP508140D7C039(HP Laser MFP 131 133 135-138)',
-  data: 'Hello, world!',
-  dataType: 'RAW'
-};
+// const options = {
+//   printerName: 'HP508140D7C039(HP Laser MFP 131 133 135-138)',
+//   data: 'Hello, world!',
+//   dataType: 'RAW'
+// };
 
-printLib.printDirect(options).then((resp) => {
-  console.log(resp);
-}).catch(console.error);
+// printLib.printDirect(options).then((resp) => {
+//   console.log(resp);
+// }).catch(console.error);
 
-// Testando status da impressora
-printLib.getStatusPrinter({ printerName: 'HP508140D7C039(HP Laser MFP 131 133 135-138)' })
-  .then((printerInfo) => {
-    console.log('Status da impressora:', printerInfo);
-  })
-  .catch((error) => {
-    console.error('Erro ao obter status da impressora:', error);
-  });
+// // Testando status da impressora
+// printLib.getStatusPrinter({ printerName: 'HP508140D7C039(HP Laser MFP 131 133 135-138)' })
+//   .then((printerInfo) => {
+//     console.log('Status da impressora:', printerInfo);
+//   })
+//   .catch((error) => {
+//     console.error('Erro ao obter status da impressora:', error);
+//   });
