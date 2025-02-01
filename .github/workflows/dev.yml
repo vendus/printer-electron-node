@@ -33,4 +33,4 @@ jobs:
         run: npm install --no-save
 
       - name: Rebuild do projeto
-        run: npm run Rebuild
+        run: npm run rebuild
