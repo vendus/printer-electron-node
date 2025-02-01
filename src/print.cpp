@@ -93,6 +93,11 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
     cups_dest_t *dest = cupsGetDest(printerName.c_str(), NULL, num_dests, dests);
     
     if (dest != NULL) {
+        // Get options from destination
+        for (int i = 0; i < dest->num_options; i++) {
+            info.details[dest->options[i].name] = dest->options[i].value;
+        }
+
         http_t *http = httpConnect2(cupsServer(), ippPort(), NULL, AF_UNSPEC, HTTP_ENCRYPTION_IF_REQUESTED, 1, 30000, NULL);
         if (http != NULL) {
             ipp_t *request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
@@ -161,10 +166,6 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                 ippDelete(response);
             }
             httpClose(http);
-        }
-
-         for (int i = 0; i < dest->num_details; i++) {
-            info.details[dest->details[i].name] = dest->details[i].value;
         }
     }
     cupsFreeDests(num_dests, dests);
