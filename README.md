@@ -79,7 +79,7 @@ printer.printDirect(printOptions)
 
 ```typescript
 import printer, { 
-  PrinterOptions, 
+  Printer, 
   PrintDirectOptions, 
   GetStatusPrinterOptions 
 } from 'printer-node-electron';
@@ -87,18 +87,18 @@ import printer, {
 async function exemplo() {
   try {
     // Listar impressoras
-    const printers: PrinterOptions[] = await printer.getPrinters();
+    const printers: Printer[] = await printer.getPrinters();
     console.log('Impressoras:', printers);
 
     // Obter impressora padrão
-    const defaultPrinter: PrinterOptions = await printer.getDefaultPrinter();
+    const defaultPrinter: Printer = await printer.getDefaultPrinter();
     console.log('Impressora padrão:', defaultPrinter);
 
     // Verificar status
     const statusOptions: GetStatusPrinterOptions = {
       printerName: 'Nome da Impressora'
     };
-    const status: PrinterOptions = await printer.getStatusPrinter(statusOptions);
+    const status: Printer = await printer.getStatusPrinter(statusOptions);
     console.log('Status:', status);
 
     // Imprimir
@@ -125,7 +125,7 @@ Retorna um array de objetos `PrinterOptions`:
 interface PrinterOptions {
     name: string;
     isDefault: boolean;
-    options: {
+    details: {
         location?: string;
         comment?: string;
         driver?: string;
