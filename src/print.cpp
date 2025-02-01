@@ -93,17 +93,14 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
     cups_dest_t *dest = cupsGetDest(printerName.c_str(), NULL, num_dests, dests);
     
     if (dest != NULL) {
-        // Get printer status and options
         http_t *http = httpConnect2(cupsServer(), ippPort(), NULL, AF_UNSPEC, HTTP_ENCRYPTION_IF_REQUESTED, 1, 30000, NULL);
         if (http != NULL) {
             ipp_t *request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
             
-            // Construct proper printer URI
             char uri[HTTP_MAX_URI];
             httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL, "localhost", ippPort(), "/printers/%s", printerName.c_str());
             ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri);
             
-            // Request specific attributes
             static const char *attrs[] = {
                 "printer-state",
                 "printer-state-message",
@@ -111,7 +108,10 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                 "printer-info",
                 "printer-make-and-model",
                 "printer-state-reasons",
-                "device-uri"
+                "device-uri",
+                "printer-uri-supported",
+                "printer-type",
+                "printer-name"
             };
             ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", 
                          sizeof(attrs) / sizeof(attrs[0]), NULL, attrs);
@@ -123,57 +123,50 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                 if (attr != NULL) {
                     info.status = GetPrinterStatus((ipp_pstate_t)ippGetInteger(attr, 0));
                 }
-                
-                // Get printer location
+
+                // Get location (similar to Windows)
                 attr = ippFindAttribute(response, "printer-location", IPP_TAG_TEXT);
                 if (attr != NULL) {
                     info.options["location"] = ippGetString(attr, 0, NULL);
+                } else {
+                    info.options["location"] = "";
                 }
-                
-                // Get printer info/description
+
+                // Get comment (printer-info in CUPS)
                 attr = ippFindAttribute(response, "printer-info", IPP_TAG_TEXT);
                 if (attr != NULL) {
-                    info.options["description"] = ippGetString(attr, 0, NULL);
+                    info.options["comment"] = ippGetString(attr, 0, NULL);
+                } else {
+                    info.options["comment"] = "";
                 }
-                
-                // Get printer make and model
+
+                // Get driver (printer-make-and-model in CUPS)
                 attr = ippFindAttribute(response, "printer-make-and-model", IPP_TAG_TEXT);
                 if (attr != NULL) {
-                    info.options["model"] = ippGetString(attr, 0, NULL);
+                    info.options["driver"] = ippGetString(attr, 0, NULL);
+                } else {
+                    info.options["driver"] = "";
                 }
-                
-                // Get device URI
+
+                // Get port (device-uri in CUPS)
                 attr = ippFindAttribute(response, "device-uri", IPP_TAG_URI);
                 if (attr != NULL) {
-                    info.options["device-uri"] = ippGetString(attr, 0, NULL);
-                }
-                
-                // Get state message
-                attr = ippFindAttribute(response, "printer-state-message", IPP_TAG_TEXT);
-                if (attr != NULL) {
-                    info.options["state-message"] = ippGetString(attr, 0, NULL);
-                }
-                
-                // Get state reasons
-                attr = ippFindAttribute(response, "printer-state-reasons", IPP_TAG_KEYWORD);
-                if (attr != NULL) {
-                    int count = ippGetCount(attr);
-                    std::string reasons;
-                    for (int i = 0; i < count; i++) {
-                        if (i > 0) reasons += ", ";
-                        reasons += ippGetString(attr, i, NULL);
+                    const char* uri = ippGetString(attr, 0, NULL);
+                    // Extract just the last part of the URI as the port name
+                    std::string uriStr(uri);
+                    size_t lastSlash = uriStr.find_last_of("/");
+                    if (lastSlash != std::string::npos) {
+                        info.options["port"] = uriStr.substr(lastSlash + 1);
+                    } else {
+                        info.options["port"] = uri;
                     }
-                    info.options["state-reasons"] = reasons;
+                } else {
+                    info.options["port"] = printerName;
                 }
-                
+
                 ippDelete(response);
             }
             httpClose(http);
-        }
-        
-        // Get additional options from destination
-        for (int i = 0; i < dest->num_options; i++) {
-            info.options[dest->options[i].name] = dest->options[i].value;
         }
     }
     cupsFreeDests(num_dests, dests);
