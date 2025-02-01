@@ -8,19 +8,15 @@ export interface PrintOptions {
 
 export interface Printer {
     name: string;
-}
-
-export interface PrinterOptions {
-    name: string;
     isDefault: boolean;
+    status: string;
     options: {
         location?: string;
         comment?: string;
         driver?: string;
         port?: string;
         [key: string]: string | undefined;
-    };
-    status: string;
+    }; 
 }
 
 export interface PrintDirectOptions {
@@ -45,20 +41,20 @@ declare module 'printer-node-electron' {
      * Lista todas as impressoras instaladas
      * @returns Promise que resolve com array de informações das impressoras
      */
-    function getPrinters(): Promise<PrinterOptions[]>;
+    function getPrinters(): Promise<Printer[]>;
 
     /**
      * Obtém a impressora padrão do sistema
      * @returns Promise que resolve com informações da impressora padrão
      */
-    function getDefaultPrinter(): Promise<PrinterOptions>;
+    function getDefaultPrinter(): Promise<Printer>;
 
     /**
      * Obtém o status de uma impressora específica
      * @param options Opções com nome da impressora
      * @returns Promise que resolve com informações da impressora
      */
-    function getStatusPrinter(options: GetStatusPrinterOptions): Promise<PrinterOptions>;
+    function getStatusPrinter(options: GetStatusPrinterOptions): Promise<Printer>;
 }
 
 export default 'printer-node-electron';

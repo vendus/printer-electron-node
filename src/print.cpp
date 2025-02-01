@@ -118,13 +118,11 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
             
             ipp_t *response = cupsDoRequest(http, request, "/");
             if (response != NULL) {
-                // Get printer state
                 ipp_attribute_t *attr = ippFindAttribute(response, "printer-state", IPP_TAG_ENUM);
                 if (attr != NULL) {
                     info.status = GetPrinterStatus((ipp_pstate_t)ippGetInteger(attr, 0));
                 }
 
-                // Get location (similar to Windows)
                 attr = ippFindAttribute(response, "printer-location", IPP_TAG_TEXT);
                 if (attr != NULL) {
                     info.options["location"] = ippGetString(attr, 0, NULL);
@@ -132,7 +130,6 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                     info.options["location"] = "";
                 }
 
-                // Get comment (printer-info in CUPS)
                 attr = ippFindAttribute(response, "printer-info", IPP_TAG_TEXT);
                 if (attr != NULL) {
                     info.options["comment"] = ippGetString(attr, 0, NULL);
@@ -140,7 +137,6 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                     info.options["comment"] = "";
                 }
 
-                // Get driver (printer-make-and-model in CUPS)
                 attr = ippFindAttribute(response, "printer-make-and-model", IPP_TAG_TEXT);
                 if (attr != NULL) {
                     info.options["driver"] = ippGetString(attr, 0, NULL);
@@ -148,11 +144,9 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                     info.options["driver"] = "";
                 }
 
-                // Get port (device-uri in CUPS)
                 attr = ippFindAttribute(response, "device-uri", IPP_TAG_URI);
                 if (attr != NULL) {
                     const char* uri = ippGetString(attr, 0, NULL);
-                    // Extract just the last part of the URI as the port name
                     std::string uriStr(uri);
                     size_t lastSlash = uriStr.find_last_of("/");
                     if (lastSlash != std::string::npos) {
@@ -167,6 +161,10 @@ PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = f
                 ippDelete(response);
             }
             httpClose(http);
+        }
+        
+         for (int i = 0; i < dest->num_options; i++) {
+            info.options[dest->options[i].name] = dest->options[i].value;
         }
     }
     cupsFreeDests(num_dests, dests);
@@ -339,7 +337,6 @@ public:
             int num_options = 0;
             cups_option_t *options = NULL;
             
-            // Convert data to char* for CUPS API
             const char* printData = reinterpret_cast<const char*>(data.data());
             size_t dataSize = data.size();
             
