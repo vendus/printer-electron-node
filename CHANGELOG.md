@@ -1,3 +1,17 @@
+# [1.3.0](https://github.com/Alexssmusica/printer-node-electron/compare/v1.2.1...v1.3.0) (2025-02-01)
+
+
+### Bug Fixes
+
+* ajustes retorno impressora ([578702f](https://github.com/Alexssmusica/printer-node-electron/commit/578702f54dca28be3186acf725122b51d1fc0d19))
+* build linux ([7dba076](https://github.com/Alexssmusica/printer-node-electron/commit/7dba076922e7df9aa806c1777bda1fd8a42959f2))
+* retorno ([7e1636f](https://github.com/Alexssmusica/printer-node-electron/commit/7e1636f74d41ead16ca308dd66e7f8dc4a753595))
+
+
+### Features
+
+* papiline lunux ([854dbe1](https://github.com/Alexssmusica/printer-node-electron/commit/854dbe1a2364c6e866405c16975b54965182faed))
+
 ## [1.2.1](https://github.com/Alexssmusica/printer-node-electron/compare/v1.2.0...v1.2.1) (2025-02-01)
 
 
