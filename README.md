@@ -220,7 +220,7 @@ node teste.js
 
 ## Licença
 
-ISC
+MIT
 
 ## Contribuindo
 
