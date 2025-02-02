@@ -6,8 +6,6 @@
   "private": false,
   "scripts": {
     "install": "node-gyp rebuild",
-    "configure": "node-gyp configure",
-    "clean": "node-gyp clean",
     "prebuild:dev": "node uploadBinarios.js",
     "prebuild:master": "prebuild",
     "build": "node-gyp build",
