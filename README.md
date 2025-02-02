@@ -14,7 +14,8 @@ Node.js e Electron bindings para gerenciamento e impressão direta em impressora
 
 ## Requisitos
 
-- Node.js >= 18.0.0
+- Node.js >= 18.20.6
+- Electron >= 20.0.0
 - Windows ou Linux
 - Para Windows: Visual Studio Build Tools
 - Para Linux: CUPS development headers (`sudo apt-get install libcups2-dev`)
@@ -117,14 +118,15 @@ async function exemplo() {
 
 ## API
 
-### getPrinters(): Promise<PrinterOptions[]>
+### getPrinters(): Promise<Printer[]>
 Lista todas as impressoras instaladas no sistema.
 
-Retorna um array de objetos `PrinterOptions`:
+Retorna um array de objetos `Printer`:
 ```typescript
-interface PrinterOptions {
+interface Printer {
     name: string;
     isDefault: boolean;
+    status: string;
     details: {
         location?: string;
         comment?: string;
@@ -132,16 +134,15 @@ interface PrinterOptions {
         port?: string;
         [key: string]: string | undefined;
     };
-    status: string;
 }
 ```
 
-### getDefaultPrinter(): Promise<PrinterOptions>
+### getDefaultPrinter(): Promise<Printer>
 Obtém a impressora padrão do sistema.
 
-Retorna um objeto `PrinterOptions`.
+Retorna um objeto `Printer`.
 
-### getStatusPrinter(options: GetStatusPrinterOptions): Promise<PrinterOptions>
+### getStatusPrinter(options: GetStatusPrinterOptions): Promise<Printer>
 Obtém o status detalhado de uma impressora específica.
 
 ```typescript
@@ -205,7 +206,7 @@ interface PrintDirectOptions {
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/seu-usuario/printer-node-electron.git
+git clone https://github.com/Alexssmusica/printer-node-electron.git
 
 # Instalar dependências
 npm install
@@ -238,7 +239,7 @@ ISC
 
 ## Autor
 
-Seu Nome - [@seu-usuario](https://github.com/seu-usuario)
+Alex Santos de Souza - [@Alexssmusica](https://github.com/Alexssmusica)
 
 ## Agradecimentos
 
