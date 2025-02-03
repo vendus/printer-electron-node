@@ -4,3 +4,14 @@
 prebuilds/
 build/
 .releaserc.json
+.env
+.prebuildrc.example
+.github/
+*.pdf
+.commands.js
+package-lock.json
+uploadBinarios.js
+release.js
+.prebuildrc
+node_modules
+teste.js
