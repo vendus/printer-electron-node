@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/Alexssmusica/printer-electron-node/compare/v1.3.11...v1.4.0) (2025-02-03)
+
+
+### Bug Fixes
+
+* binding_name ([724a17b](https://github.com/Alexssmusica/printer-electron-node/commit/724a17b9b1cd8389d20190f41e1cf2fe11db983d))
+
+
+### Features
+
+* arquivo ([ba6757f](https://github.com/Alexssmusica/printer-electron-node/commit/ba6757f237f9445be379f267539524af236faa30))
+
 ## [1.3.11](https://github.com/Alexssmusica/printer-electron-node/compare/v1.3.10...v1.3.11) (2025-02-03)
 
 
