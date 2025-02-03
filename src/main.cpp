@@ -9,4 +9,4 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     return exports;
 }
 
-NODE_API_MODULE(printer_node_electron, Init)
+NODE_API_MODULE(printer_electron_node, Init)

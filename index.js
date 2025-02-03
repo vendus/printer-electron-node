@@ -1,4 +1,4 @@
-const printLib = require('bindings')('printer_node_electron');
+const printLib = require('bindings')('printer_electron_node');
 
 module.exports = {
   getPrinters: printLib.getPrinters,

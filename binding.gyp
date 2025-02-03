@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "printer_node_electron",
+      "target_name": "printer_electron_node",
       "sources": [
         "src/main.cpp",
         "src/print.cpp"
@@ -15,7 +15,7 @@
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "defines": [ "NAPI_DISABLE_CPP_EXCEPTIONS" ],
-      "binding_name": "printer_node_electron",
+      "binding_name": "printer_electron_node",
       "conditions": [
         ['OS=="win"', {
           "libraries": []
