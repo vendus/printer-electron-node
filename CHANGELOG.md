@@ -1,3 +1,10 @@
+## [1.3.9](https://github.com/Alexssmusica/printer-electron-node/compare/v1.3.8...v1.3.9) (2025-02-03)
+
+
+### Bug Fixes
+
+* ignore arquivo ([d099858](https://github.com/Alexssmusica/printer-electron-node/commit/d09985818304d7bc81f59a99b040e2cf4f8ec1ad))
+
 ## [1.3.8](https://github.com/Alexssmusica/printer-electron-node/compare/v1.3.7...v1.3.8) (2025-02-03)
 
 
