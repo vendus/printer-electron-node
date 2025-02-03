@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/Alexssmusica/printer-electron-node/compare/v1.3.2...v1.3.3) (2025-02-03)
+
+
+### Bug Fixes
+
+* nome da lib ([7bf9e70](https://github.com/Alexssmusica/printer-electron-node/commit/7bf9e702a431f8eaefeb378e74b8c4a55437d91a))
+
 ## [1.3.2](https://github.com/Alexssmusica/printer-node-electron/compare/v1.3.1...v1.3.2) (2025-02-03)
 
 
