@@ -1,14 +1,14 @@
-const printer = require('./');
+const { getPrinters, getDefaultPrinter, printDirect, getStatusPrinter } = require('./');
 
 // Testando listagem de impressoras
-printer.getPrinters().then((printers) => {
+getPrinters().then((printers) => {
   console.log('Impressoras disponíveis:', printers);
 }).catch((error) => {
   console.error('Erro ao listar impressoras:', error);
 });
 
 // Testando impressora padrão
-printer.getDefaultPrinter().then((printer) => {
+getDefaultPrinter().then((printer) => {
   console.log('Impressora padrão:', printer);
 }).catch((error) => {
   console.error('Erro ao obter impressora padrão:', error);
@@ -21,12 +21,12 @@ const options = {
   dataType: 'RAW'
 };
 
-printer.printDirect(options).then((resp) => {
+printDirect(options).then((resp) => {
   console.log(resp);
 }).catch(console.error);
 
 // // Testando status da impressora
-printer.getStatusPrinter({ printerName: 'HP508140D7C039(HP Laser MFP 131 133 135-138)' })
+getStatusPrinter({ printerName: 'HP508140D7C039(HP Laser MFP 131 133 135-138)' })
   .then((printerInfo) => {
     console.log('Status da impressora:', printerInfo);
   })
