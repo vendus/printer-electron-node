@@ -1,5 +1,4 @@
-const printerNode = require('bindings')('printer_node_electron');
-
+const printerNode = require('bindings')('printer_electron_node');
 
 async function printDirect(printOptions) {
   const input = {
