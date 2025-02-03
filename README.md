@@ -1,4 +1,4 @@
-# printer-node-electron
+# printer-electron-node
 
 Node.js e Electron bindings para gerenciamento e impressão direta em impressoras. Suporta Windows e Linux (CUPS).
 
@@ -23,13 +23,13 @@ Node.js e Electron bindings para gerenciamento e impressão direta em impressora
 ## Instalação
 
 ```bash
-npm install printer-node-electron
+npm install printer-electron-node
 ```
 
 Para desenvolvimento:
 ```bash
-git clone https://github.com/Alexssmusica/printer-node-electron.git
-cd printer-node-electron
+git clone https://github.com/Alexssmusica/printer-electron-node.git
+cd printer-electron-node
 npm install
 npm run rebuild
 ```
@@ -39,7 +39,7 @@ npm run rebuild
 ### JavaScript
 
 ```javascript
-const printer = require('printer-node-electron');
+const printer = require('printer-electron-node');
 
 // Listar todas as impressoras
 printer.getPrinters()
@@ -83,7 +83,7 @@ import printer, {
   Printer, 
   PrintDirectOptions, 
   GetStatusPrinterOptions 
-} from 'printer-node-electron';
+} from 'printer-electron-node';
 
 async function exemplo() {
   try {
@@ -206,7 +206,7 @@ interface PrintDirectOptions {
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/Alexssmusica/printer-node-electron.git
+git clone https://github.com/Alexssmusica/printer-electron-node.git
 
 # Instalar dependências
 npm install

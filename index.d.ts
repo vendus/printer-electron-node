@@ -29,7 +29,7 @@ export interface GetStatusPrinterOptions {
     printerName: string;
 }
 
-declare module 'printer-node-electron' {
+declare module 'printer-electron-node' {
     /**
      * Imprime dados diretamente na impressora
      * @param options Opções de impressão
@@ -57,5 +57,5 @@ declare module 'printer-node-electron' {
     function getStatusPrinter(options: GetStatusPrinterOptions): Promise<Printer>;
 }
 
-export default 'printer-node-electron';
+export default 'printer-electron-node';
   
