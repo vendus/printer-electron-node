@@ -1,3 +1,10 @@
+## [1.3.11](https://github.com/Alexssmusica/printer-electron-node/compare/v1.3.10...v1.3.11) (2025-02-03)
+
+
+### Bug Fixes
+
+* nome  do import ([1906791](https://github.com/Alexssmusica/printer-electron-node/commit/19067911935dee2de565d5357734b06916ff8b30))
+
 ## [1.3.10](https://github.com/Alexssmusica/printer-electron-node/compare/v1.3.9...v1.3.10) (2025-02-03)
 
 
