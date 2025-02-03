@@ -15,7 +15,7 @@
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "defines": [ "NAPI_DISABLE_CPP_EXCEPTIONS" ],
-      "binding_name": "printer_electron_node",
+      "binding_name": "printerNode",
       "conditions": [
         ['OS=="win"', {
           "libraries": []
