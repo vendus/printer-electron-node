@@ -1,4 +1,4 @@
-const printer = require('bindings')('printer_node_electron');
+const printerNode = require('bindings')('printer_node_electron');
 
 
 async function printDirect(printOptions) {
@@ -6,7 +6,7 @@ async function printDirect(printOptions) {
     ...printOptions,
     printerName: normalizeString(printOptions.printerName)
   }
-  return await printer.printDirect(input)
+  return await printerNode.printDirect(input)
 }
 
 async function getStatusPrinter(printOptions) {
@@ -14,7 +14,7 @@ async function getStatusPrinter(printOptions) {
     ...printOptions,
     printerName: normalizeString(printOptions.printerName)
   }
-  return await printer.getStatusPrinter(input)
+  return await printerNode.getStatusPrinter(input)
 }
 
 
@@ -23,8 +23,8 @@ function normalizeString(str) {
 }
 
 module.exports = {
-  getPrinters: printer.getPrinters,
-  getDefaultPrinter: printer.getDefaultPrinter,
+  getPrinters: printerNode.getPrinters,
+  getDefaultPrinter: printerNode.getDefaultPrinter,
   printDirect,
   getStatusPrinter,
 };
