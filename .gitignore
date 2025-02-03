@@ -15,3 +15,4 @@ release.js
 .prebuildrc
 node_modules/
 teste.js
+commands.js
