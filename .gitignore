@@ -3,12 +3,12 @@
 .c9*
 prebuilds/
 build/
+.env.example
 .releaserc.json
 .env
 .prebuildrc.example
 .github/
 *.pdf
-.commands.js
 package-lock.json
 uploadBinarios.js
 release.js
