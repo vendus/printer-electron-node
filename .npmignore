@@ -13,5 +13,6 @@ package-lock.json
 uploadBinarios.js
 release.js
 .prebuildrc
-node_modules
+node_modules/
 teste.js
+commands.js
