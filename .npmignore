@@ -16,3 +16,4 @@ release.js
 node_modules/
 teste.js
 commands.js
+.env.example
