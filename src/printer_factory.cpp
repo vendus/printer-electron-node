@@ -6,10 +6,11 @@
 #include "linux_printer.h"
 #endif
 
-std::unique_ptr<PrinterInterface> PrinterFactory::Create() {
+std::unique_ptr<PrinterInterface> PrinterFactory::Create()
+{
 #ifdef _WIN32
     return std::make_unique<WindowsPrinter>();
 #else
     return std::make_unique<LinuxPrinter>();
 #endif
-} 
+}

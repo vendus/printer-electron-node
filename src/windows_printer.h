@@ -17,18 +17,19 @@
 #undef GetPrinter
 #endif
 
-class WindowsPrinter : public PrinterInterface {
+class WindowsPrinter : public PrinterInterface
+{
 private:
     std::string GetPrinterStatus(DWORD status);
-    std::wstring Utf8ToWide(const std::string& str);
+    std::wstring Utf8ToWide(const std::string &str);
     std::string WideToUtf8(LPWSTR wstr);
 
 public:
-    virtual PrinterInfo GetPrinterDetails(const std::string& printerName, bool isDefault = false) override;
+    virtual PrinterInfo GetPrinterDetails(const std::string &printerName, bool isDefault = false) override;
     virtual std::vector<PrinterInfo> GetPrinters() override;
     virtual PrinterInfo GetSystemDefaultPrinter() override;
-    virtual bool PrintDirect(const std::string& printerName, const std::vector<uint8_t>& data, const std::string& dataType) override;
-    virtual PrinterInfo GetStatusPrinter(const std::string& printerName) override;
+    virtual bool PrintDirect(const std::string &printerName, const std::vector<uint8_t> &data, const std::string &dataType) override;
+    virtual PrinterInfo GetStatusPrinter(const std::string &printerName) override;
 };
 
-#endif 
+#endif

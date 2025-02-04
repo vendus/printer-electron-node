@@ -46,12 +46,13 @@ std::string WindowsPrinter::GetPrinterStatus(DWORD status)
     return "ready";
 }
 
-std::wstring WindowsPrinter::Utf8ToWide(const std::string& str)
+std::wstring WindowsPrinter::Utf8ToWide(const std::string &str)
 {
     std::wstring wstr;
     int len = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
-    if (len > 0) {
-        wstr.resize(len - 1);  // -1 porque não precisamos do null terminator
+    if (len > 0)
+    {
+        wstr.resize(len - 1);
         MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &wstr[0], len);
     }
     return wstr;
@@ -59,17 +60,19 @@ std::wstring WindowsPrinter::Utf8ToWide(const std::string& str)
 
 std::string WindowsPrinter::WideToUtf8(LPWSTR wstr)
 {
-    if (!wstr) return "";
-    
+    if (!wstr)
+        return "";
+
     int len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
-    if (len <= 0) return "";
+    if (len <= 0)
+        return "";
 
     std::vector<char> buffer(len);
     WideCharToMultiByte(CP_UTF8, 0, wstr, -1, buffer.data(), len, NULL, NULL);
     return std::string(buffer.data());
 }
 
-PrinterInfo WindowsPrinter::GetPrinterDetails(const std::string& printerName, bool isDefault)
+PrinterInfo WindowsPrinter::GetPrinterDetails(const std::string &printerName, bool isDefault)
 {
     PrinterInfo info;
     info.name = printerName;
@@ -77,7 +80,7 @@ PrinterInfo WindowsPrinter::GetPrinterDetails(const std::string& printerName, bo
 
     HANDLE hPrinter;
     std::wstring wPrinterName = Utf8ToWide(printerName);
-    
+
     if (OpenPrinterW((LPWSTR)wPrinterName.c_str(), &hPrinter, NULL))
     {
         DWORD needed;
@@ -87,7 +90,7 @@ PrinterInfo WindowsPrinter::GetPrinterDetails(const std::string& printerName, bo
             std::vector<BYTE> buffer(needed);
             if (GetPrinterW(hPrinter, 2, buffer.data(), needed, &needed))
             {
-                PRINTER_INFO_2W* pInfo = (PRINTER_INFO_2W*)buffer.data();
+                PRINTER_INFO_2W *pInfo = (PRINTER_INFO_2W *)buffer.data();
                 info.status = GetPrinterStatus(pInfo->Status);
 
                 if (pInfo->pLocation)
@@ -110,31 +113,31 @@ std::vector<PrinterInfo> WindowsPrinter::GetPrinters()
 {
     std::vector<PrinterInfo> printers;
     DWORD needed = 0, returned = 0;
-    
+
     EnumPrintersW(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 2, NULL, 0, &needed, &returned);
     if (needed > 0)
     {
         std::vector<BYTE> buffer(needed);
         if (EnumPrintersW(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 2, buffer.data(), needed, &needed, &returned))
         {
-            PRINTER_INFO_2W* pInfo = (PRINTER_INFO_2W*)buffer.data();
+            PRINTER_INFO_2W *pInfo = (PRINTER_INFO_2W *)buffer.data();
             for (DWORD i = 0; i < returned; i++)
             {
                 std::string name = WideToUtf8(pInfo[i].pPrinterName);
                 bool isDefault = false;
-                
+
                 wchar_t defaultPrinter[256];
                 DWORD size = sizeof(defaultPrinter) / sizeof(defaultPrinter[0]);
                 if (GetDefaultPrinterW(defaultPrinter, &size))
                 {
                     isDefault = (wcscmp(pInfo[i].pPrinterName, defaultPrinter) == 0);
                 }
-                
+
                 printers.push_back(GetPrinterDetails(name, isDefault));
             }
         }
     }
-    
+
     return printers;
 }
 
@@ -142,22 +145,22 @@ PrinterInfo WindowsPrinter::GetSystemDefaultPrinter()
 {
     wchar_t printerName[256];
     DWORD size = sizeof(printerName) / sizeof(printerName[0]);
-    
+
     if (GetDefaultPrinterW(printerName, &size))
     {
         std::string name = WideToUtf8(printerName);
         return GetPrinterDetails(name, true);
     }
-    
+
     return PrinterInfo();
 }
 
-bool WindowsPrinter::PrintDirect(const std::string& printerName, const std::vector<uint8_t>& data, const std::string& dataType)
+bool WindowsPrinter::PrintDirect(const std::string &printerName, const std::vector<uint8_t> &data, const std::string &dataType)
 {
     HANDLE hPrinter;
     std::wstring wPrinterName = Utf8ToWide(printerName);
     std::wstring wDataType = Utf8ToWide(dataType);
-    
+
     if (!OpenPrinterW((LPWSTR)wPrinterName.c_str(), &hPrinter, NULL))
     {
         return false;
@@ -174,7 +177,7 @@ bool WindowsPrinter::PrintDirect(const std::string& printerName, const std::vect
         if (StartPagePrinter(hPrinter))
         {
             DWORD bytesWritten;
-            void* buffer = const_cast<void*>(static_cast<const void*>(data.data()));
+            void *buffer = const_cast<void *>(static_cast<const void *>(data.data()));
             if (WritePrinter(hPrinter, buffer, static_cast<DWORD>(data.size()), &bytesWritten))
             {
                 EndPagePrinter(hPrinter);
@@ -190,14 +193,15 @@ bool WindowsPrinter::PrintDirect(const std::string& printerName, const std::vect
     return false;
 }
 
-PrinterInfo WindowsPrinter::GetStatusPrinter(const std::string& printerName)
+PrinterInfo WindowsPrinter::GetStatusPrinter(const std::string &printerName)
 {
     // Primeiro verificar se é a impressora padrão
     wchar_t defaultPrinter[256];
     DWORD size = sizeof(defaultPrinter) / sizeof(defaultPrinter[0]);
     bool isDefault = false;
-    
-    if (GetDefaultPrinterW(defaultPrinter, &size)) {
+
+    if (GetDefaultPrinterW(defaultPrinter, &size))
+    {
         std::string defaultPrinterName = WideToUtf8(defaultPrinter);
         isDefault = (printerName == defaultPrinterName);
     }
@@ -207,4 +211,4 @@ PrinterInfo WindowsPrinter::GetStatusPrinter(const std::string& printerName)
     return printer;
 }
 
-// ... Continuarei com o resto das implementações ... 
+// ... Continuarei com o resto das implementações ...

@@ -4,9 +4,10 @@
 #include "printer_interface.h"
 #include <memory>
 
-class PrinterFactory {
+class PrinterFactory
+{
 public:
     static std::unique_ptr<PrinterInterface> Create();
 };
 
-#endif 
+#endif
