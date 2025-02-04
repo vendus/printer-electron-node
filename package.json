@@ -1,7 +1,7 @@
 {
   "name": "printer-electron-node",
   "description": "Node.js and Electron bindings",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "main": "index.js",
   "private": false,
   "scripts": {

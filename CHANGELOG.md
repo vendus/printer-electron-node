@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/Alexssmusica/printer-electron-node/compare/v1.4.1...v1.4.2) (2025-02-04)
+
+
+### Bug Fixes
+
+* build linux ([ab7b8c9](https://github.com/Alexssmusica/printer-electron-node/commit/ab7b8c9b9010016cf115c61afc07a77b98a887f2))
+* linux ([096ae72](https://github.com/Alexssmusica/printer-electron-node/commit/096ae72e27bbc4f1a214f09f01b7b6045152be82))
+
 ## [1.4.1](https://github.com/Alexssmusica/printer-electron-node/compare/v1.4.0...v1.4.1) (2025-02-03)
 
 
