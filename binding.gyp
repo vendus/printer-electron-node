@@ -14,16 +14,15 @@
         "<!(node -p \"require('node-addon-api').gyp\")"
       ],
       "defines": [ "NAPI_CPP_EXCEPTIONS" ],
-      "msvs_settings": {
-        "VCCLCompilerTool": {
-          "ExceptionHandling": 1
-        }
-      },
-      "binding_name": "printer_electron_node",
       "conditions": [
         ['OS=="win"', {
           "sources": ["src/windows_printer.cpp"],
-          "libraries": ["winspool.lib"]
+          "libraries": ["winspool.lib"],
+          "msvs_settings": {
+            "VCCLCompilerTool": {
+              "ExceptionHandling": 1
+            }
+          }
         }],
         ['OS=="linux" or OS=="mac"', {
           "sources": ["src/linux_printer.cpp"],
@@ -31,10 +30,18 @@
           "include_dirs": [
             "/usr/include/cups"
           ],
-          "cflags": ["-Wall"],
+          "cflags": [
+            "-Wall",
+            "-fexceptions"
+          ],
+          "cflags_cc": [
+            "-fexceptions"
+          ],
           "xcode_settings": {
             "OTHER_CFLAGS": ["-Wall"],
-            "GCC_ENABLE_CPP_EXCEPTIONS": "YES"
+            "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+            "CLANG_CXX_LIBRARY": "libc++",
+            "MACOSX_DEPLOYMENT_TARGET": "10.7"
           }
         }]
       ]
