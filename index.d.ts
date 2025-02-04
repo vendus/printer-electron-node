@@ -16,7 +16,7 @@ export interface Printer {
         driver?: string;
         port?: string;
         [key: string]: string | undefined;
-    }; 
+    };
 }
 
 export interface PrintDirectOptions {
@@ -29,13 +29,18 @@ export interface GetStatusPrinterOptions {
     printerName: string;
 }
 
+export interface PrintDirectOutput {
+    name: string;
+    status: 'success' | 'failed';
+}
+
 declare module 'printer-electron-node' {
     /**
      * Imprime dados diretamente na impressora
      * @param options Opções de impressão
      * @returns Promise que resolve com mensagem de sucesso
      */
-    function printDirect(options: PrintDirectOptions): Promise<string>;
+    function printDirect(options: PrintDirectOptions): Promise<PrintDirectOutput>;
 
     /**
      * Lista todas as impressoras instaladas
@@ -58,4 +63,3 @@ declare module 'printer-electron-node' {
 }
 
 export default 'printer-electron-node';
-  

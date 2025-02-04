@@ -17,3 +17,4 @@ node_modules/
 teste.js
 commands.js
 .env.example
+.vscode
