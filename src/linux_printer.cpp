@@ -135,7 +135,9 @@ bool LinuxPrinter::PrintDirect(const std::string& printerName,
         return false;
     }
 
-    if (cupsWriteRequestData(CUPS_HTTP_DEFAULT, data.data(), data.size()) != HTTP_STATUS_CONTINUE)
+    if (cupsWriteRequestData(CUPS_HTTP_DEFAULT, 
+                            reinterpret_cast<const char*>(data.data()), 
+                            data.size()) != HTTP_STATUS_CONTINUE)
     {
         cupsCancelJob(printerName.c_str(), jobId);
         return false;
