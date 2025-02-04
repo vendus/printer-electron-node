@@ -4,6 +4,7 @@
 #define NOMINMAX
 #include <windows.h>
 #include <winspool.h>
+#include <cstdint>
 #include "printer_interface.h"
 #include <vector>
 

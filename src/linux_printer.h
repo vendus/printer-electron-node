@@ -2,6 +2,7 @@
 #define LINUX_PRINTER_H
 #include <cups/cups.h>
 #include <cups/ppd.h>
+#include <cstdint>
 #include "printer_interface.h"
 
 class LinuxPrinter : public PrinterInterface {
