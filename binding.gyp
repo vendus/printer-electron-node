@@ -18,7 +18,7 @@
       "binding_name": "printer_electron_node",
       "conditions": [
         ['OS=="win"', {
-          "libraries": []
+          "libraries": ["winspool.lib"]
         }],
         ['OS=="linux" or OS=="mac"', {
           "libraries": ["-lcups"],
