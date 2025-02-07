@@ -29,7 +29,6 @@ PrinterInfo LinuxPrinter::GetPrinterDetails(const std::string &printerName, bool
 
     if (dest != NULL)
     {
-        // Get options from destination
         for (int i = 0; i < dest->num_options; i++)
         {
             info.details[dest->options[i].name] = dest->options[i].value;
@@ -58,7 +57,6 @@ PrinterInfo LinuxPrinter::GetPrinterDetails(const std::string &printerName, bool
                     info.status = GetPrinterStatus((ipp_pstate_t)ippGetInteger(attr, 0));
                 }
 
-                // Get additional printer information
                 attr = ippFindAttribute(response, "printer-location", IPP_TAG_TEXT);
                 if (attr != NULL)
                     info.details["location"] = ippGetString(attr, 0, NULL);
@@ -152,7 +150,6 @@ PrinterInfo LinuxPrinter::GetStatusPrinter(const std::string &printerName)
     cups_dest_t *dests;
     int num_dests = cupsGetDests(&dests);
 
-    // Primeiro encontrar a impressora padrão
     cups_dest_t *defaultDest = cupsGetDest(NULL, NULL, num_dests, dests);
     bool isDefault = false;
 
@@ -161,7 +158,6 @@ PrinterInfo LinuxPrinter::GetStatusPrinter(const std::string &printerName)
         isDefault = (printerName == defaultDest->name);
     }
 
-    // Então obter os detalhes da impressora específica
     cups_dest_t *dest = cupsGetDest(printerName.c_str(), NULL, num_dests, dests);
     PrinterInfo printer;
 

@@ -271,5 +271,3 @@ Napi::Value GetStatusPrinter(const Napi::CallbackInfo &info)
     worker->Queue();
     return deferred.Promise();
 }
-
-// ... Continuarei com GetSystemDefaultPrinter e GetStatusPrinter ...

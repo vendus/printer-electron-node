@@ -195,7 +195,6 @@ bool WindowsPrinter::PrintDirect(const std::string &printerName, const std::vect
 
 PrinterInfo WindowsPrinter::GetStatusPrinter(const std::string &printerName)
 {
-    // Primeiro verificar se é a impressora padrão
     wchar_t defaultPrinter[256];
     DWORD size = sizeof(defaultPrinter) / sizeof(defaultPrinter[0]);
     bool isDefault = false;
@@ -206,9 +205,6 @@ PrinterInfo WindowsPrinter::GetStatusPrinter(const std::string &printerName)
         isDefault = (printerName == defaultPrinterName);
     }
 
-    // Então obter os detalhes da impressora
     PrinterInfo printer = GetPrinterDetails(printerName, isDefault);
     return printer;
 }
-
-// ... Continuarei com o resto das implementações ...
