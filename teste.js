@@ -1,4 +1,4 @@
-const { getPrinters, getDefaultPrinter, printDirect, getStatusPrinter } = require('./lib/packages/');
+const { getPrinters, getDefaultPrinter, printDirect, getStatusPrinter } = require('./lib/');
 
 // Testando listagem de impressoras
 getPrinters().then((printers) => {
@@ -25,7 +25,7 @@ printDirect(options).then((resp) => {
   console.log(resp);
 }).catch(console.error);
 
-// // Testando status da impressora
+// Testando status da impressora
 getStatusPrinter({ printerName: 'HP508140D7C039(HP Laser MFP 131 133 135-138)' })
   .then((printerInfo) => {
     console.log('Status da impressora:', printerInfo);
