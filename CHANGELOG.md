@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/Alexssmusica/printer-electron-node/compare/v1.4.2...v1.5.0) (2025-02-11)
+
+
+### Features
+
+* implemente ts ([582feaf](https://github.com/Alexssmusica/printer-electron-node/commit/582feaf41dd0cfc4e092a0cda8aa1953e1e71222))
+
 ## [1.4.2](https://github.com/Alexssmusica/printer-electron-node/compare/v1.4.1...v1.4.2) (2025-02-04)
 
 
