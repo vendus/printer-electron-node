@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/Alexssmusica/printer-electron-node/compare/v1.5.2...v1.5.3) (2025-02-11)
+
+
+### Bug Fixes
+
+* root dir ts ([e31ae04](https://github.com/Alexssmusica/printer-electron-node/commit/e31ae045ebdf59b74158af48ebf789f1e050ec45))
+
 ## [1.5.2](https://github.com/Alexssmusica/printer-electron-node/compare/v1.5.1...v1.5.2) (2025-02-11)
 
 
