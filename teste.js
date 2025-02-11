@@ -1,4 +1,4 @@
-const { getPrinters, getDefaultPrinter, printDirect, getStatusPrinter } = require('./');
+const { getPrinters, getDefaultPrinter, printDirect, getStatusPrinter } = require('./lib/packages/');
 
 // Testando listagem de impressoras
 getPrinters().then((printers) => {

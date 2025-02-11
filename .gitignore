@@ -5,4 +5,4 @@ build/
 .env
 .prebuildrc
 node_modules/
-
+lib/
