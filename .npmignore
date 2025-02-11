@@ -19,3 +19,4 @@ commands.js
 .env.example
 .vscode/
 packages/
+lib/tsconfig-build.tsbuildinfo
