@@ -20,3 +20,5 @@ commands.js
 .vscode/
 packages/
 lib/tsconfig-build.tsbuildinfo
+tsconfig.json
+tsconfig-build.json
