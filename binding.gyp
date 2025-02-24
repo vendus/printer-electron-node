@@ -10,9 +10,6 @@
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"
       ],
-      "dependencies": [
-        "<!(node -p \"require('node-addon-api').gyp\")"
-      ],
       "defines": [ "NAPI_CPP_EXCEPTIONS" ],
       "conditions": [
         ['OS=="win"', {
@@ -34,7 +31,10 @@
             "OTHER_CFLAGS": ["-Wall"],
             "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
             "CLANG_CXX_LIBRARY": "libc++",
-            "MACOSX_DEPLOYMENT_TARGET": "10.7"
+            "MACOSX_DEPLOYMENT_TARGET": "10.7",
+            "OTHER_LDFLAGS": [
+              "-Wl,-no_warn_empty_archive"
+            ]
           }
         }],
         ['OS=="linux"', {
