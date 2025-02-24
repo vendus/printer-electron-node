@@ -24,7 +24,20 @@
             }
           }
         }],
-        ['OS=="linux" or OS=="mac"', {
+        ['OS=="mac"', {
+          "sources": ["src/mac_printer.cpp"],
+          "libraries": ["-lcups"],
+          "include_dirs": [
+            "/usr/include/cups"
+          ],
+          "xcode_settings": {
+            "OTHER_CFLAGS": ["-Wall"],
+            "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+            "CLANG_CXX_LIBRARY": "libc++",
+            "MACOSX_DEPLOYMENT_TARGET": "10.7"
+          }
+        }],
+        ['OS=="linux"', {
           "sources": ["src/linux_printer.cpp"],
           "libraries": ["-lcups"],
           "include_dirs": [
@@ -36,13 +49,7 @@
           ],
           "cflags_cc": [
             "-fexceptions"
-          ],
-          "xcode_settings": {
-            "OTHER_CFLAGS": ["-Wall"],
-            "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
-            "CLANG_CXX_LIBRARY": "libc++",
-            "MACOSX_DEPLOYMENT_TARGET": "10.7"
-          }
+          ]
         }]
       ]
     }
