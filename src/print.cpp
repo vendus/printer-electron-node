@@ -229,11 +229,10 @@ Napi::Value GetStatusPrinter(const Napi::CallbackInfo &info)
 
     Napi::Object options = info[0].As<Napi::Object>();
 
-    // Log das propriedades do objeto
     Napi::Array propertyNames = options.GetPropertyNames();
     for (uint32_t i = 0; i < propertyNames.Length(); i++)
     {
-        Napi::String name = propertyNames.Get(i).As<Napi::String>();
+        propertyNames.Get(i).As<Napi::String>();
     }
 
     if (!options.Has("printerName"))
