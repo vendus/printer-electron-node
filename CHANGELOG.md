@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/Alexssmusica/printer-electron-node/compare/v1.5.3...v1.6.0) (2025-02-24)
+
+
+### Features
+
+* ci MacOs ([0fc0e53](https://github.com/Alexssmusica/printer-electron-node/commit/0fc0e53bee29187a13cf5fea08a70765a045f031))
+* impressao MacOs ([d5c1b66](https://github.com/Alexssmusica/printer-electron-node/commit/d5c1b6643cd8a28fbfbed20cee0b1a3fed6415b0))
+
 ## [1.5.3](https://github.com/Alexssmusica/printer-electron-node/compare/v1.5.2...v1.5.3) (2025-02-11)
 
 
