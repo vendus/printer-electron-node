@@ -118,9 +118,7 @@ bool MacPrinter::PrintDirect(const std::string &printerName,
     if (jobId <= 0)
         return false;
 
-    http_status_t status = cupsStartDocument(CUPS_HTTP_DEFAULT, printerName.c_str(),
-                                           jobId, "Node.js Print Job",
-                                           "application/octet-stream", 1);
+    http_status_t status = cupsStartDocument(CUPS_HTTP_DEFAULT, printerName.c_str(), jobId, "Node.js Print Job", "application/octet-stream", 1);
 
     if (status != HTTP_STATUS_CONTINUE)
     {
