@@ -21,9 +21,11 @@ const options = {
   dataType: 'RAW'
 };
 
+/*
 printDirect(options).then((resp) => {
   console.log(resp);
 }).catch(console.error);
+*/
 
 // Testando status da impressora
 getStatusPrinter({ printerName: 'HP508140D7C039(HP Laser MFP 131 133 135-138)' })
