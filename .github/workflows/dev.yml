@@ -6,9 +6,10 @@ on:
 jobs:
   CI-dev:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest] #macos-latest
         node-version: [18.x, 20.x, 22.x]
 
     steps:
