@@ -1,7 +1,7 @@
 {
   "name": "printer-electron-node",
   "description": "Node.js and Electron bindings",
-  "version": "1.6.0",
+  "version": "1.7.1",
   "main": "printer.js",
   "private": false,
   "scripts": {
@@ -15,9 +15,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Alexssmusica/printer-electron-node.git"
+    "url": "git@github.com:vendus/printer-electron-node.git"
   },
-  "homepage": "https://github.com/Alexssmusica/printer-electron-node/#readme",
+  "homepage": "https://github.com/vendus/printer-electron-node/#readme",
   "keywords": [
     "native",
     "electron",
@@ -26,13 +26,13 @@
   ],
   "author": {
     "name": "Alex Santos de Souza",
-    "url": "https://github.com/Alexssmusica/printer-electron-node/#readme",
+    "url": "https://github.com/vendus/printer-electron-node/#readme",
     "email": "alexssmusica@gmail.com"
   },
   "binary": {
     "module_name": "printer_electron_node",
     "module_path": "build/Release/",
-    "host": "https://github.com/Alexssmusica/printer-electron-node/releases/download/",
+    "host": "https://github.com/vendus/printer-electron-node/releases/download/",
     "remote_path": "v{version}"
   },
   "license": "MIT",

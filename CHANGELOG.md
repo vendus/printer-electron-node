@@ -1,3 +1,11 @@
+## [1.7.1](https://github.com/vendus/printer-electron-node/compare/v1.7.0...v1.7.1) (2025-08-05)
+
+
+### Bug Fixes
+
+* mac ([a3f25a5](https://github.com/vendus/printer-electron-node/commit/a3f25a5efa639b7c958c326348f1598e3c79e019))
+* win ([ab09030](https://github.com/vendus/printer-electron-node/commit/ab0903027422c98f31c7691f2c20dc530517ef21))
+
 # [1.6.0](https://github.com/Alexssmusica/printer-electron-node/compare/v1.5.3...v1.6.0) (2025-02-24)
 
 
