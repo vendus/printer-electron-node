@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/vendus/printer-electron-node/compare/v1.7.1...v1.7.2) (2025-08-05)
+
+
+### Bug Fixes
+
+* package json ([ec01976](https://github.com/vendus/printer-electron-node/commit/ec01976c414706acc02aff67951b23bc095e6607))
+
 ## [1.7.1](https://github.com/vendus/printer-electron-node/compare/v1.7.0...v1.7.1) (2025-08-05)
 
 
