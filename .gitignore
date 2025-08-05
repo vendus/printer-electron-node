@@ -5,6 +5,6 @@ build/
 .env
 .prebuildrc
 node_modules/
-lib/
+#lib/
 tsconfig-build.tsbuildinfo
 
