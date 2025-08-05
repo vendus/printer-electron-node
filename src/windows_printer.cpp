@@ -170,7 +170,7 @@ bool WindowsPrinter::PrintDirect(const std::string &printerName, const std::vect
     wchar_t docName[] = L"Node.js Print Job";
     docInfo.pDocName = docName;
     docInfo.pOutputFile = NULL;
-    docInfo.pDatatype = const_cast<LPWSTR>(wDataType.c_str());
+    docInfo.pDatatype = L"RAW";
 
     if (StartDocPrinterW(hPrinter, 1, (LPBYTE)&docInfo))
     {
