@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/vendus/printer-electron-node/compare/v1.7.2...v1.7.3) (2025-08-05)
+
+
+### Bug Fixes
+
+* generate lib ([92d676d](https://github.com/vendus/printer-electron-node/commit/92d676d614a05890b97e3b8e109faa9d3ff08be4))
+
 ## [1.7.2](https://github.com/vendus/printer-electron-node/compare/v1.7.1...v1.7.2) (2025-08-05)
 
 
