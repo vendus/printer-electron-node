@@ -21,7 +21,7 @@ const options = {
   dataType: 'RAW'
 };
 
-/*
+/***
 printDirect(options).then((resp) => {
   console.log(resp);
 }).catch(console.error);
