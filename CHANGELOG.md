@@ -1,3 +1,11 @@
+## [1.7.4](https://github.com/vendus/printer-electron-node/compare/v1.7.3...v1.7.4) (2025-08-05)
+
+
+### Bug Fixes
+
+* add /lib ([8adbd5a](https://github.com/vendus/printer-electron-node/commit/8adbd5a0aa69539b45731df859f9562147971d01))
+* allow /lib ([18c251b](https://github.com/vendus/printer-electron-node/commit/18c251bd27fd002e715ed7d47178bd831b716e1d))
+
 ## [1.7.3](https://github.com/vendus/printer-electron-node/compare/v1.7.2...v1.7.3) (2025-08-05)
 
 
